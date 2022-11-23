@@ -11,13 +11,13 @@ import java.util.List;
 // implements the logic for deciding whether to fetch data over a network or use results cached in the local database
 public class WordRepository {
 
-    private WordDoa wordDoa;
+    private WordDao wordDao;
     private LiveData<List<Word>> allWords;
 
     public WordRepository(Application application) {
         WordRoomDatabase db = WordRoomDatabase.getInstance(application);
-        wordDoa = db.wordDoa();
-        allWords = wordDoa.getAllWords();
+        wordDao = db.wordDao();
+        allWords = wordDao.getAllWords();
     }
 
     // wrapper method
@@ -27,13 +27,13 @@ public class WordRepository {
 
     // calls the doa's insert method in a separate thread
     public void insert(Word word) {
-        new InsertAsyncTask(wordDoa).execute(word);
+        new InsertAsyncTask(wordDao).execute(word);
     }
 
     private static class InsertAsyncTask extends AsyncTask<Word, Void, Void> {
-        private WordDoa asyncTaskDao;
+        private WordDao asyncTaskDao;
 
-        public InsertAsyncTask(WordDoa dao) {
+        public InsertAsyncTask(WordDao dao) {
             asyncTaskDao = dao;
         }
 

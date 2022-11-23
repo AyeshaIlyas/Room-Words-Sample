@@ -9,7 +9,7 @@ import androidx.room.Query;
 import java.util.List;
 
 @Dao
-public interface WordDoa {
+public interface WordDao {
 
     @Insert
     void insert(Word word);
